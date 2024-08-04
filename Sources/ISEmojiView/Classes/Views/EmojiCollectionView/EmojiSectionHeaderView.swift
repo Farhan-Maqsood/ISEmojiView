@@ -13,8 +13,8 @@ class EmojiSectionHeaderView: UICollectionReusableView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.alpha = 0.5
+        label.font = UIFont.boldSystemFont(ofSize: 8)
+        label.alpha = 0.2
         return label
     }()
     

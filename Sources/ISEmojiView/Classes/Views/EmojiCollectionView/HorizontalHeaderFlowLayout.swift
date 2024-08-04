@@ -16,7 +16,7 @@ class HorizontalHeaderFlowLayout: UICollectionViewLayout {
     
     // Set a y offset so the items render a bit lower which
     // leaves room for the title at the top
-    private var sectionTitleHeight = CGFloat(30)
+    private var sectionTitleHeight = CGFloat(20)
     
     // The content height of the layout is static since we're configuring horizontal
     // layout. However, the content width needs to be calculated and returned later
