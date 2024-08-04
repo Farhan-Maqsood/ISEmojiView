@@ -65,8 +65,6 @@ final internal class CategoriesBottomView: UIView {
     @IBOutlet private var collectionViewToSuperViewLeadingConstraint: NSLayoutConstraint!
     
     @IBOutlet private weak var collecitonViewToSuperViewTrailingConstraint: NSLayoutConstraint!
-    
-    private var heightConstraint: NSLayoutConstraint?
 
     // MARK: - Init functions
     
@@ -104,13 +102,6 @@ final internal class CategoriesBottomView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        if heightConstraint == nil {
-            heightConstraint = heightAnchor.constraint(equalToConstant: 32)
-            heightConstraint?.isActive = true
-        } else {
-            heightConstraint?.constant = 32
-        }
         
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             var size = collectionView.bounds.size
