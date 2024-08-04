@@ -87,6 +87,8 @@ final internal class CategoriesBottomView: UIView {
 
         if !needToShowDeleteButton {
           bottomView.collecitonViewToSuperViewTrailingConstraint.priority = .defaultHigh
+        } else {
+            bottomView.collecitonViewToSuperViewTrailingConstraint.priority = .defaultLow
         }
 
         bottomView.selectFirstCell()
