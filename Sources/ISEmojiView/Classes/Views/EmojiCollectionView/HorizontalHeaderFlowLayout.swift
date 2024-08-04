@@ -79,7 +79,7 @@ class HorizontalHeaderFlowLayout: UICollectionViewFlowLayout {
         
         // Adjust the header's y position based on the collection view's content offset
         let contentOffsetY = collectionView.contentOffset.y
-        layoutAttributes.frame.origin.y = contentOffsetY
+        layoutAttributes.frame.origin.y = 0
         layoutAttributes.zIndex = 1024
         
         return layoutAttributes
