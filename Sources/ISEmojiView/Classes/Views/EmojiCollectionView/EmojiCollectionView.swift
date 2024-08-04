@@ -133,9 +133,9 @@ internal class EmojiCollectionView: UIView {
     {
         // Not flow layout, but our custom layout
         let customLayout = HorizontalHeaderFlowLayout()
-        customLayout.itemSpacing = 0
-        customLayout.sectionSpacing = 4
-        customLayout.itemSize = CGSize(width: 35, height: 35)
+        customLayout.itemSpacing = 12
+        customLayout.sectionSpacing = 25
+        customLayout.itemSize = CGSize(width: 32, height: 26)
         collectionView.collectionViewLayout = customLayout
         
     }
