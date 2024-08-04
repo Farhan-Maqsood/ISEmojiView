@@ -152,22 +152,57 @@ extension EmojiCollectionView: UICollectionViewDataSource {
     }
     
     internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return emojis[section].emojis.count
+        if section == 0 {
+            if emojis[section].emojis.count == 0 {
+                return 8
+            } else {
+                let totalcells = 8
+                let emojies = emojis[section].emojis.count
+                if emojies < totalcells {
+                    return totalcells
+                } else {
+                    return emojis[section].emojis.count
+                }
+            }
+        } else {
+            return emojis[section].emojis.count
+        }
     }
     
     internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let emojiCategory = emojis[indexPath.section]
-        let emoji = emojiCategory.emojis[indexPath.item]
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: emojiCellReuseIdentifier, for: indexPath) as! EmojiCollectionCell
-        
-        if let selectedEmoji = emoji.selectedEmoji {
-            cell.setEmoji(selectedEmoji)
+        if indexPath.section == 0 && emojis[indexPath.section].emojis.count <= 8 {
+            if indexPath.row < emojis[indexPath.section].emojis.count {
+                let emojiCategory = emojis[indexPath.section]
+                let emoji = emojiCategory.emojis[indexPath.item]
+                
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: emojiCellReuseIdentifier, for: indexPath) as! EmojiCollectionCell
+                
+                if let selectedEmoji = emoji.selectedEmoji {
+                    cell.setEmoji(selectedEmoji)
+                } else {
+                    cell.setEmoji(emoji.emoji)
+                }
+                
+                return cell
+            } else {
+                return UICollectionViewCell()
+            }
         } else {
-            cell.setEmoji(emoji.emoji)
+            
+            let emojiCategory = emojis[indexPath.section]
+            let emoji = emojiCategory.emojis[indexPath.item]
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: emojiCellReuseIdentifier, for: indexPath) as! EmojiCollectionCell
+            
+            if let selectedEmoji = emoji.selectedEmoji {
+                cell.setEmoji(selectedEmoji)
+            } else {
+                cell.setEmoji(emoji.emoji)
+            }
+            
+            return cell
         }
-        
-        return cell
     }
     
     internal func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -186,6 +221,24 @@ extension EmojiCollectionView: UICollectionViewDataSource {
 extension EmojiCollectionView: UICollectionViewDelegate {
     
     internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if indexPath.section == 0 && emojis[indexPath.section].emojis.count <= 8 {
+            if emojis[indexPath.section].emojis.count <= 0 {
+                return
+            } else {
+                if indexPath.row < emojis[indexPath.section].emojis.count {
+                    emojiPressed(at: indexPath)
+                } else {
+                    return
+                }
+            }
+        } else {
+            emojiPressed(at: indexPath)
+        }
+        
+    }
+    
+    func emojiPressed(at indexPath:IndexPath) {
         guard emojiPopView.isHidden else {
             dismissPopView(false)
             return
