@@ -44,6 +44,8 @@ final internal class CategoriesBottomView: UIView {
         }
     }
     
+    internal var backspaceTimer: Timer?
+    
     // MARK: - IBOutlets
     
     @IBOutlet private weak var changeKeyboardButton: UIButton!
@@ -92,7 +94,7 @@ final internal class CategoriesBottomView: UIView {
         }
 
         bottomView.selectFirstCell()
-        
+        bottomView.addLongTapGesture()
         return bottomView
     }
     
@@ -137,6 +139,39 @@ final internal class CategoriesBottomView: UIView {
         
         let indexPath = IndexPath(item: item, section: 0)
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+    }
+    
+    internal func addLongTapGesture() {
+        let deleteLongPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(deleteLongPressed(_:)))
+        deleteButton.addGestureRecognizer(deleteLongPressRecognizer)
+    }
+    
+    @objc func deleteLongPressed(_ gesture: UIGestureRecognizer) {
+        var deleteCount = 0
+        if gesture.state == .began {
+          backspaceTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+            deleteCount += 1
+              self.delegate?.categoriesBottomViewDidPressDeleteBackwardButton(self)
+
+            if deleteCount == 20 {
+                self.backspaceTimer?.invalidate()
+                self.backspaceTimer = Timer.scheduledTimer(withTimeInterval: 0.07, repeats: true) { _ in
+                deleteCount += 1
+                  self.delegate?.categoriesBottomViewDidPressDeleteBackwardButton(self)
+
+                if deleteCount == 50 {
+                    self.backspaceTimer?.invalidate()
+                    self.backspaceTimer = Timer.scheduledTimer(withTimeInterval: 0.04, repeats: true) { _ in
+                      self.delegate?.categoriesBottomViewDidPressDeleteBackwardButton(self)
+                  }
+                }
+              }
+            }
+          }
+        } else if gesture.state == .ended || gesture.state == .cancelled {
+          backspaceTimer?.invalidate()
+          backspaceTimer = nil
+        }
     }
     
     // MARK: - IBActions
