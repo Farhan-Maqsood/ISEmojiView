@@ -63,6 +63,7 @@ internal class EmojiCollectionView: UIView {
     @IBOutlet private weak var collectionView: UICollectionView! {
         didSet {
             collectionView.register(EmojiCollectionCell.self, forCellWithReuseIdentifier: emojiCellReuseIdentifier)
+            collectionView.register(EmojiSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: EmojiSectionHeaderView.reuseIdentifier)
         }
     }
     
@@ -156,8 +157,16 @@ extension EmojiCollectionView: UICollectionViewDataSource {
         
         return cell
     }
-
     
+    internal func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: EmojiSectionHeaderView.reuseIdentifier, for: indexPath) as! EmojiSectionHeaderView
+            let category = emojis[indexPath.section].category
+            headerView.configure(with: category?.title ?? "")
+            return headerView
+        }
+        return UICollectionReusableView()
+    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -192,6 +201,10 @@ extension EmojiCollectionView: UICollectionViewDelegate {
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension EmojiCollectionView: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 28)
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         var inset = UIEdgeInsets.zero
