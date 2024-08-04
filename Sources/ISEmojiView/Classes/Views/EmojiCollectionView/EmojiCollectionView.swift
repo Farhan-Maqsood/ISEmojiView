@@ -62,9 +62,6 @@ internal class EmojiCollectionView: UIView {
     
     @IBOutlet private weak var collectionView: UICollectionView! {
         didSet {
-            let cv = UICollectionView(frame: CGRect.zero,
-                                      collectionViewLayout: createLayout())
-            collectionView = cv
             collectionView.register(EmojiCollectionCell.self, forCellWithReuseIdentifier: emojiCellReuseIdentifier)
             collectionView.register(EmojiSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: EmojiSectionHeaderView.reuseIdentifier)
         }
@@ -132,15 +129,15 @@ internal class EmojiCollectionView: UIView {
         collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
     
-    internal func createLayout() -> HorizontalHeaderFlowLayout
+    internal func createLayout()
     {
         // Not flow layout, but our custom layout
         let customLayout = HorizontalHeaderFlowLayout()
-        customLayout.itemSpacing = 10
-        customLayout.sectionSpacing = 20
-        customLayout.itemSize = CGSize(width: 50, height: 50)
+        customLayout.itemSpacing = 0
+        customLayout.sectionSpacing = 4
+        customLayout.itemSize = CGSize(width: 35, height: 35)
+        collectionView.collectionViewLayout = customLayout
         
-        return customLayout
     }
     
 }
