@@ -135,7 +135,7 @@ class HorizontalHeaderFlowLayout: UICollectionViewLayout {
     // the max X value of the last item in the collection view
     override var collectionViewContentSize: CGSize
     {
-        return CGSize(width: contentWidth, height: contentHeight)
+        return CGSize(width: contentWidth-2400, height: contentHeight)
     }
     
     // This defines what gets shown in the rect (viewport) the user

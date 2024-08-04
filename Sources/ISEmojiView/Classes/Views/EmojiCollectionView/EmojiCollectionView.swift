@@ -137,6 +137,7 @@ internal class EmojiCollectionView: UIView {
         customLayout.sectionSpacing = 25
         customLayout.itemSize = CGSize(width: 32, height: 26)
         collectionView.collectionViewLayout = customLayout
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 20)
         
     }
     
