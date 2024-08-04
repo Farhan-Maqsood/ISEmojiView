@@ -56,7 +56,7 @@ class HorizontalHeaderFlowLayout: UICollectionViewFlowLayout {
                 guard let collectionView = collectionView else { continue }
                 var frame = layoutAttributes.frame
                 let contentOffset = collectionView.contentOffset
-                frame.origin.y = contentOffset.y
+                frame.origin.y = 0
                 layoutAttributes.frame = frame
                 layoutAttributes.zIndex = 1024 // Ensure headers are on top of cells
             }
