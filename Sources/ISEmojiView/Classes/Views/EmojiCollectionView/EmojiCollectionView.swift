@@ -62,6 +62,10 @@ internal class EmojiCollectionView: UIView {
     
     @IBOutlet private weak var collectionView: UICollectionView! {
         didSet {
+            let layout = HorizontalHeaderFlowLayout()
+            layout.scrollDirection = .horizontal
+            layout.headerReferenceSize = CGSize(width: 90, height: 28)
+            collectionView.collectionViewLayout = layout
             collectionView.register(EmojiCollectionCell.self, forCellWithReuseIdentifier: emojiCellReuseIdentifier)
             collectionView.register(EmojiSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: EmojiSectionHeaderView.reuseIdentifier)
         }
