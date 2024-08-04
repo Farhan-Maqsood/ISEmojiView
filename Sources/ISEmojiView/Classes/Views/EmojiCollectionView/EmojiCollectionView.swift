@@ -95,7 +95,7 @@ internal class EmojiCollectionView: UIView {
         
         view.emojis = emojis
         view.setupView()
-        
+        view.createLayout()
         return view
     }
     
