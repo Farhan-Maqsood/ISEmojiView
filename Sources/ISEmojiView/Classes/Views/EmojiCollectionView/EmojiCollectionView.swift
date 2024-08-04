@@ -64,6 +64,7 @@ internal class EmojiCollectionView: UIView {
         didSet {
             collectionView.register(EmojiCollectionCell.self, forCellWithReuseIdentifier: emojiCellReuseIdentifier)
             collectionView.register(EmojiSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: EmojiSectionHeaderView.reuseIdentifier)
+            collectionView.register(EmptyCollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: EmptyCollectionViewCell.reuseIdentifier)
         }
     }
     
@@ -186,7 +187,8 @@ extension EmojiCollectionView: UICollectionViewDataSource {
                 
                 return cell
             } else {
-                return UICollectionViewCell()
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmptyCollectionViewCell.reuseIdentifier, for: indexPath) as! EmptyCollectionViewCell
+                return cell
             }
         } else {
             
